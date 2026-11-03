@@ -6,6 +6,7 @@
 - [x] Verify Crab Chess: 65 tests, production build, dependency audit and a browser move.
 - [x] Verify Godot: submission hashes, 41 Python tests and browser startup.
 - [x] Create a local Spanish WordPress blog with Yoast, two illustrated articles, author and support pages.
+- [x] Add the projects.html showcase, stable project anchors, and WordPress navigation/article links back to it.
 - [x] Check WordPress routes, mobile layouts, admin login and plugin activation.
 - [x] Export SQL, wp-content and WXR; restore SQL to an isolated test database.
 - [ ] Authenticate Vercel and publish all three projects; verify public URLs and connect GitHub deployment sources.

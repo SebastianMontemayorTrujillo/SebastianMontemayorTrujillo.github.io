@@ -7,7 +7,7 @@ import os
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "now.html", "other.html")
+PAGES = ("index.html", "now.html", "projects.html", "other.html")
 
 
 def https_url(value):

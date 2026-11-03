@@ -13,6 +13,8 @@ El sitio local está limitado a loopback y excluido de buscadores. El script pue
 
 La portada, navegación, cabecera y pie se guardan como contenido editable de WordPress. Las dos entradas tienen autor, descripción SEO y capturas reales de los proyectos. El sitio no contiene claves de Stripe.
 
+El portafolio externo usa `PORTFOLIO_URL` como dirección base. El script añade **Portafolio de proyectos** al menú y al pie, con destino `/projects.html`; las entradas enlazan a `#crab-chess` y `#voces-de-la-plaza`. Para devolver el enlace desde el sitio personal al blog, configurar `blog_url` en site.json y reconstruir el portafolio. Publicar ambos destinos antes de considerar comprobados los enlaces externos.
+
 ## InfinityFree
 
 Crear una cuenta gratuita y un subdominio con HTTPS en su panel; instalar WordPress mediante Softaculous. Usar la dirección sin `www`. No usar su plan de pago ni comprar dominio.

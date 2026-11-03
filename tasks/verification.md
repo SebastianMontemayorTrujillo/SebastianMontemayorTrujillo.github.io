@@ -10,3 +10,9 @@
 Local preview: http://localhost:8085. Local admin credentials are in the ignored, mode-0600 `wordpress/.env`; never include this file in a public upload.
 
 Next: authenticate Vercel, supply/access the free WordPress hosting site and public Stripe Payment Link, deploy and verify, update the public links, migrate GitHub Pages, then verify and submit the Google/Bing properties. Keep the skills evidence post in draft until the missing SEO/payment evidence exists.
+
+## Showcase follow-up
+
+Added projects.html with stable #crab-chess and #voces-de-la-plaza anchors and navigation from all four personal-site pages. Build checks now cover the four-page sitemap and the configured WordPress link. Chromium checks passed at 320, 768 and 1280 px, including homepage navigation and both WordPress article backlinks, with no page errors. WordPress navigation/footer also link to the showcase. Real external URLs still require deployment and the blog's public address.
+
+Vercel authentication was subsequently verified read-only; its Hobby team had no projects at that check. Earlier authentication-blocker text above is historical. Public deployment remains pending.

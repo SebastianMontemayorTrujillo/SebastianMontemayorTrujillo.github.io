@@ -10,6 +10,12 @@ Vercel uses `vercel.json`; import this repository with framework **Other**. The 
 
 Validation: `python3 -m unittest discover -s scripts -p 'test_*.py'`.
 
+## Project showcase and WordPress links
+
+The dedicated showcase is `/projects.html`, linked from every page. Stable individual links are `/projects.html#crab-chess` and `/projects.html#voces-de-la-plaza`. Repository links work immediately; demo buttons appear when their actual addresses are entered in site.json.
+
+Set `blog_url` in site.json to the real WordPress address and rebuild to show the blog link on the showcase. In WordPress, set `PORTFOLIO_URL` to the personal site's verified base URL: the setup adds a **Portafolio de proyectos** navigation/footer link and article links to the corresponding showcase sections. Use the same base URL after the Vercel migration. The new showcase route is not public until this source branch is deployed.
+
 ## Migration and search engines
 
 After the new production URL is reachable, save it in `site.json`, rebuild, and run `python3 scripts/prepare_redirects.py`. Publish only the generated `github-pages/` directory to a separate GitHub Pages branch and change Pages' source to that branch. This preserves all three old page paths with immediate HTML redirects and canonical URLs. Keep those redirects indefinitely. Vercel deployments continue to use the source branch, not the redirects branch.

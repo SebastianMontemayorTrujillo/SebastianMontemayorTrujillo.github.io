@@ -32,16 +32,21 @@ class BuildTests(unittest.TestCase):
                 with patch.object(build, 'ROOT', root), patch.dict(os.environ, {'VERCEL_ENV': env, 'SITE_URL': ''}):
                     build.build()
                 output = root / 'dist'
-                text = (output / 'other.html').read_text()
+                text = (output / 'projects.html').read_text()
                 self.assertEqual('noindex' in text, env == 'preview')
                 self.assertIn('https://chess.example', text)
                 self.assertIn('https://game.example', text)
                 self.assertIn('https://blog.example', text)
+                self.assertIn('id="crab-chess"', text)
+                self.assertIn('id="voces-de-la-plaza"', text)
+                for page in build.PAGES:
+                    self.assertIn('href="projects.html"', (output / page).read_text())
                 self.assertNotIn('github.io', text)
                 self.assertNotIn('og.png', text)
                 self.assertFalse((output / '.env').exists())
                 xml = ET.parse(output / 'sitemap.xml')
-                self.assertEqual(len(xml.findall('{*}url')), 3)
+                self.assertEqual(len(xml.findall('{*}url')), 4)
+                self.assertIn('https://seb.example/projects.html', (output / 'sitemap.xml').read_text())
                 self.assertEqual('Disallow: /' in (output / 'robots.txt').read_text(), env == 'preview')
 
 

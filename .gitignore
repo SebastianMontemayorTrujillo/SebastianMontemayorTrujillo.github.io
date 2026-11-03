@@ -5,4 +5,5 @@ github-pages/
 wordpress/.env
 wordpress/backups/
 wordpress/evidence/
+/evidence/
 __pycache__/

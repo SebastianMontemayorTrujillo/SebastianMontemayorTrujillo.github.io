@@ -10,6 +10,8 @@ foreach (['PORTFOLIO_URL', 'XDCHESS_URL', 'INEHACK_URL'] as $key) {
     }
     $config['{{' . $key . '}}'] = esc_url($url);
 }
+$projects_url = rtrim(getenv('PORTFOLIO_URL'), '/') . '/projects.html';
+$config['{{PROJECTS_URL}}'] = esc_url($projects_url);
 $stripe = getenv('STRIPE_PAYMENT_LINK') ?: '';
 if ($stripe !== '') {
     $parts = wp_parse_url($stripe);
@@ -76,6 +78,9 @@ foreach (['proyectos' => 'Inicio', 'blog' => 'Blog', 'sobre-mi' => 'Sobre mí', 
     $attrs = ['label' => $label, 'type' => 'page', 'id' => $ids[$slug], 'url' => get_permalink($ids[$slug]), 'kind' => 'post-type'];
     $navigation .= '<!-- wp:navigation-link ' . wp_json_encode($attrs) . ' /-->';
 }
+$navigation .= '<!-- wp:navigation-link ' . wp_json_encode([
+    'label' => 'Portafolio de proyectos', 'type' => 'custom', 'url' => $projects_url, 'kind' => 'custom',
+]) . ' /-->';
 $nav = get_page_by_path('navegacion-del-blog', OBJECT, 'wp_navigation');
 $nav_id = wp_insert_post(['ID' => $nav ? $nav->ID : 0, 'post_name' => 'navegacion-del-blog',
     'post_type' => 'wp_navigation', 'post_status' => 'publish', 'post_title' => 'Navegación del blog', 'post_content' => $navigation]);
@@ -85,7 +90,8 @@ $header = '<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"2
 $footer = '<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"48px","bottom":"32px"}}},"layout":{"type":"constrained"}} -->' .
     '<div class="wp-block-group alignwide" style="padding-top:48px;padding-bottom:32px"><!-- wp:site-title {"level":0} /-->' .
     '<!-- wp:paragraph --><p>Hackathons, juegos y aprendizajes de desarrollo de software.</p><!-- /wp:paragraph -->' .
-    '<!-- wp:paragraph --><p><a href="' . $config['{{PORTFOLIO_URL}}'] . '">Sitio personal de Sebastian</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
+    '<!-- wp:paragraph --><p><a href="' . $config['{{PORTFOLIO_URL}}'] . '">Sitio personal de Sebastian</a> · ' .
+    '<a href="' . $config['{{PROJECTS_URL}}'] . '">Portafolio de proyectos</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
 foreach (['header' => $header, 'footer' => $footer] as $slug => $content) {
     $existing = get_posts(['post_type' => 'wp_template_part', 'name' => $slug, 'numberposts' => 1,
         'tax_query' => [['taxonomy' => 'wp_theme', 'field' => 'slug', 'terms' => 'twentytwentyfive']]]);
