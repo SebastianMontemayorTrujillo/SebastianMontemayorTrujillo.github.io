@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "proyectos",
+    "type": "page",
+    "title": "Proyectos y notas de hackathons",
+    "description": "Proyectos de Sebastian Montemayor Trujillo: juegos, educación cívica y aprendizajes de desarrollo web.",
+    "html": "<p>Soy Sebastian Montemayor Trujillo. Estudio matemáticas en la UNAM y aprendo desarrollo de software construyendo proyectos.</p><p>En este blog comparto decisiones, pruebas y aprendizajes de mis proyectos. Puedes explorar las entradas recientes desde el archivo del blog.</p><h2>Para empezar</h2><ul><li><a href='{{XDCHESS_URL}}'>Crab Chess</a>: ajedrez en el navegador con minijuegos.</li><li><a href='{{INEHACK_URL}}'>Voces de la Plaza</a>: aventura de educación cívica creada en Godot con el equipo Latas.</li></ul><p><a href='{{PORTFOLIO_URL}}'>Visita mi sitio personal</a>.</p>"
+  },
+  {
+    "slug": "blog",
+    "type": "page",
+    "title": "Blog",
+    "description": "Notas en español sobre juegos, hackathons y desarrollo de software.",
+    "html": ""
+  },
+  {
+    "slug": "sobre-mi",
+    "type": "page",
+    "title": "Sobre mí",
+    "description": "Conoce a Sebastian Montemayor Trujillo, estudiante de matemáticas y creador de proyectos web.",
+    "html": "<p>Soy de Monterrey, México, y estudio matemáticas en la UNAM. Me interesa aprender creando herramientas y experiencias que otras personas puedan probar.</p><p>Aquí documento lo que construyo, los límites de cada proyecto y lo que todavía quiero mejorar.</p><p><a href='{{PORTFOLIO_URL}}'>Sitio personal</a> · <a href='https://github.com/SebastianMontemayorTrujillo'>GitHub</a> · <a href='mailto:sebastianmontemayortrujillo@gmail.com'>Contacto por correo</a></p>"
+  },
+  {
+    "slug": "apoya-mis-proyectos",
+    "type": "page",
+    "title": "Apoya mis proyectos",
+    "description": "Apoya de forma voluntaria los proyectos personales de Sebastian Montemayor Trujillo mediante Stripe.",
+    "html": "<p>Si te gustan mis proyectos, puedes apoyar su desarrollo con una aportación voluntaria y única. El apoyo es para mis proyectos personales.</p><p>Stripe procesa el pago en su propia página y descuenta las comisiones correspondientes. Este sitio no recibe ni almacena los datos de tu tarjeta.</p>{{STRIPE_BUTTON}}<p>Si tienes una duda sobre una aportación, <a href='mailto:sebastianmontemayortrujillo@gmail.com'>escríbeme por correo</a>.</p>"
+  },
+  {
+    "slug": "crab-chess-ajedrez-con-minijuegos",
+    "type": "post",
+    "title": "Crab Chess: cuando una captura se convierte en un minijuego",
+    "description": "Cómo funciona Crab Chess: ajedrez en el navegador, capturas con minijuegos y un oponente Minimax ejecutado de forma local.",
+    "html": "{{XDCHESS_IMAGE}}<p>¿Qué ocurre si capturar una pieza deja de ser una acción automática? Crab Chess combina un tablero de ajedrez con minijuegos que deciden las capturas.</p><h2>Una partida con dos capas</h2><p>El tablero plantea el problema estratégico. Cuando llega una captura, un minijuego añade una segunda decisión: ejecutar bien la acción. Puedes jugar con otra persona en el mismo teclado o elegir un oponente Minimax.</p><h2>Cómo está construido</h2><p>La aplicación usa JavaScript, Vite y chess.js. El oponente se ejecuta en el navegador mediante un worker; no necesita una API de inteligencia artificial de pago.</p><p>El repositorio incluye pruebas de las reglas, la búsqueda del oponente y los minijuegos. Estas pruebas complementan la revisión de una partida real: una compilación correcta por sí sola no demuestra que todos los controles sean cómodos.</p><h2>Qué quiero observar</h2><p>Me interesa comprobar si los minijuegos hacen que una partida sea más entretenida y si las instrucciones permiten empezar sin ayuda. No presento esa hipótesis como un resultado de pruebas con usuarios.</p><p><a href='{{XDCHESS_URL}}'>Abrir Crab Chess</a> · <a href='https://github.com/SebastianMontemayorTrujillo/xdchess'>Ver el código</a></p>"
+  },
+  {
+    "slug": "voces-de-la-plaza-inehack",
+    "type": "post",
+    "title": "Voces de la Plaza: datos de participación ciudadana en una aventura",
+    "description": "Voces de la Plaza, proyecto del equipo Latas para INEhack: una aventura Godot que convierte datos de participación ciudadana en un cartel.",
+    "html": "{{INEHACK_IMAGE}}<p>Voces de la Plaza es una aventura educativa creada con el equipo Latas para el Reto 3 de INEhack. La propuesta es convertir datos de participación ciudadana en una experiencia que invite a leer, comparar y conversar.</p><h2>Un recorrido por Villa Brisa</h2><p>La persona visita a Luz, Mateo e Inés, realiza seis actividades y prepara un cartel ciudadano. Los datos históricos proceden de los Conteos Censales de Participación Ciudadana del INE de la elección federal de 2024; la consulta del pueblo es ficticia y se identifica por separado.</p><h2>Del dato al cartel</h2><p>El taller permite comparar dos entidades, elegir cantidades o proporciones y formular una pregunta. El recorrido termina al imprimir el cartel en la historia; descargar el PDF es una acción voluntaria.</p><h2>Decisiones técnicas y límites</h2><p>El juego está hecho en Godot y tiene versiones para navegador y Linux. El progreso y los ajustes se guardan localmente; la decisión de la consulta y el borrador del cartel permanecen en memoria.</p><p>La versión web requiere una computadora con teclado, WebAssembly y WebGL 2.0. Sus ajustes de texto y movimiento no equivalen a una certificación de accesibilidad para lectores de pantalla. El objetivo educativo todavía necesita observación con participantes.</p><p>Este artículo describe el proyecto del equipo. Los créditos, fuentes y licencias se conservan en el repositorio y en la distribución del juego.</p><p><a href='{{INEHACK_URL}}'>Abrir Voces de la Plaza</a> · <a href='https://github.com/SebastianMontemayorTrujillo/inehack'>Ver el código y los créditos</a></p>"
+  },
+  {
+    "slug": "como-mantengo-este-blog",
+    "type": "post",
+    "title": "Cómo mantengo este blog en WordPress",
+    "status": "draft",
+    "description": "Bitácora de configuración de WordPress, plugins, SEO y pagos con Stripe. Borrador pendiente de evidencias.",
+    "html": "<p>Este borrador se publicará cuando existan capturas y comprobaciones reales de la instalación.</p><h2>Edición y plugins</h2><p>Documentar la edición de una entrada en el editor de bloques, la configuración de Yoast SEO y una actualización con copia previa y comprobación posterior.</p><h2>SEO y pagos</h2><p>Añadir capturas de títulos, descripciones, sitemap y verificación de buscadores; mostrar el checkout de Stripe en modo de prueba sin datos privados.</p><h2>Mantenimiento</h2><p>Registrar fecha, cambio, comprobación y siguiente mejora. Confirmar personalmente la disponibilidad semanal antes de anunciarla.</p>"
+  }
+]
