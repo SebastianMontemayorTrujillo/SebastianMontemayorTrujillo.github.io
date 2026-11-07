@@ -1,0 +1,56 @@
+name: seb-hackathon-blog
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  wordpress:
+    image: wordpress:php8.3-apache
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8085:80"
+    environment: &wordpress-env
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - wordpress:/var/www/html
+  cli:
+    image: wordpress:cli-php8.3
+    depends_on:
+      db:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    user: "33:33"
+    profiles: [tools]
+    environment:
+      <<: *wordpress-env
+      WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+      BLOG_URL: ${BLOG_URL:-http://localhost:8085}
+      PORTFOLIO_URL: ${PORTFOLIO_URL:-https://sebastianmontemayortrujillo.github.io}
+      XDCHESS_URL: ${XDCHESS_URL:-https://github.com/SebastianMontemayorTrujillo/xdchess}
+      INEHACK_URL: ${INEHACK_URL:-https://github.com/SebastianMontemayorTrujillo/inehack}
+      STRIPE_PAYMENT_LINK: ${STRIPE_PAYMENT_LINK:-}
+      WP_ADMIN_USER: ${WP_ADMIN_USER:-sebastian}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD:?Set WP_ADMIN_PASSWORD in .env}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL:-sebastianmontemayortrujillo@gmail.com}
+    volumes:
+      - wordpress:/var/www/html
+      - ./:/setup:ro
+volumes:
+  database:
+  wordpress:
