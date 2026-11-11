@@ -79,7 +79,7 @@ foreach (['proyectos' => 'Inicio', 'blog' => 'Blog', 'sobre-mi' => 'Sobre mí', 
     $navigation .= '<!-- wp:navigation-link ' . wp_json_encode($attrs) . ' /-->';
 }
 $navigation .= '<!-- wp:navigation-link ' . wp_json_encode([
-    'label' => 'Portafolio de proyectos', 'type' => 'custom', 'url' => $projects_url, 'kind' => 'custom',
+    'label' => 'Volver a proyectos', 'type' => 'custom', 'url' => $projects_url . '#blog', 'kind' => 'custom',
 ]) . ' /-->';
 $nav = get_page_by_path('navegacion-del-blog', OBJECT, 'wp_navigation');
 $nav_id = wp_insert_post(['ID' => $nav ? $nav->ID : 0, 'post_name' => 'navegacion-del-blog',
@@ -91,7 +91,7 @@ $footer = '<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"4
     '<div class="wp-block-group alignwide" style="padding-top:48px;padding-bottom:32px"><!-- wp:site-title {"level":0} /-->' .
     '<!-- wp:paragraph --><p>Hackathons, juegos y aprendizajes de desarrollo de software.</p><!-- /wp:paragraph -->' .
     '<!-- wp:paragraph --><p><a href="' . $config['{{PORTFOLIO_URL}}'] . '">Sitio personal de Sebastian</a> · ' .
-    '<a href="' . $config['{{PROJECTS_URL}}'] . '">Portafolio de proyectos</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
+    '<a href="' . $config['{{PROJECTS_URL}}'] . '#blog">Volver a proyectos</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
 foreach (['header' => $header, 'footer' => $footer] as $slug => $content) {
     $existing = get_posts(['post_type' => 'wp_template_part', 'name' => $slug, 'numberposts' => 1,
         'tax_query' => [['taxonomy' => 'wp_theme', 'field' => 'slug', 'terms' => 'twentytwentyfive']]]);

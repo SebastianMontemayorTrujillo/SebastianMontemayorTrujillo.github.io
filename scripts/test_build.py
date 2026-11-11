@@ -37,10 +37,13 @@ class BuildTests(unittest.TestCase):
                 self.assertIn('https://chess.example', text)
                 self.assertIn('https://game.example', text)
                 self.assertIn('https://blog.example', text)
+                self.assertIn('id="blog"', text)
+                self.assertIn('https://blog.example/crab-chess-ajedrez-con-minijuegos/', text)
                 self.assertIn('id="crab-chess"', text)
                 self.assertIn('id="voces-de-la-plaza"', text)
                 for page in build.PAGES:
                     self.assertIn('href="projects.html"', (output / page).read_text())
+                    self.assertIn('href="projects.html#blog"', (output / page).read_text())
                 self.assertNotIn('github.io', text)
                 self.assertNotIn('og.png', text)
                 self.assertFalse((output / '.env').exists())
