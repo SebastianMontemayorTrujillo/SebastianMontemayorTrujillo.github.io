@@ -1,4 +1,4 @@
-name: Publish personal website
+name: Publicar sitio personal
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Check the build
+      - name: Comprobar la construcción
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
-      - name: Build public pages
+      - name: Construir las páginas públicas
         run: python3 scripts/build.py
         env:
           VERCEL_ENV: production

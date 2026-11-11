@@ -36,7 +36,7 @@ def build():
             source = source.replace("</head>", '<meta name="robots" content="noindex, nofollow">\n</head>')
         for project in ("xdchess", "inehack"):
             url = config[project + "_url"]
-            link = f'<a href="{html.escape(https_url(url), quote=True)}">Play the demo →</a>' if url else ""
+            link = f'<a href="{html.escape(https_url(url), quote=True)}">Probar la demo</a>' if url else ""
             source = source.replace(f"<!-- {project}-demo -->", link)
         blog = config["blog_url"]
         link = ""
@@ -44,8 +44,8 @@ def build():
             blog = html.escape(https_url(blog), quote=True)
             link = f'''<section id="blog" aria-labelledby="blog-title">
         <h2 id="blog-title">Blog <span lang="es">en español</span></h2>
-        <p>I write in Spanish about hackathons and the projects I build.</p>
-        <p><a href="{blog}/" hreflang="es">Read Notas de Sebastian</a></p>
+        <p>Escribo sobre mis proyectos, los hackathons y lo que aprendo al construirlos.</p>
+        <p><a href="{blog}/" hreflang="es">Leer Notas de Sebastian</a></p>
         <ul lang="es">
           <li><a href="{blog}/crab-chess-ajedrez-con-minijuegos/">Crab Chess, ajedrez con minijuegos</a></li>
           <li><a href="{blog}/voces-de-la-plaza-inehack/">Voces de la Plaza, una aventura de participación ciudadana</a></li>
