@@ -4,17 +4,25 @@ Simple personal website, with project demos and a separate Spanish WordPress blo
 
 ## Build and deploy
 
+GitHub Pages publishes the built `dist/` directory through `.github/workflows/pages.yml` whenever the website changes on `main`. The workflow runs the build checks before deployment. The personal site uses the GitHub Pages origin configured in `site.json`.
+
 Set the verified public addresses in `site.json`. Empty blog/demo URLs are omitted until those sites are live. Run `python3 scripts/build.py` to generate only public HTML/CSS, robots.txt and sitemap.xml in `dist/`.
 
 Vercel uses `vercel.json`; import this repository with framework **Other**. The build uses the Vercel production domain automatically unless `site_url` or `SITE_URL` is set. `VERCEL_ENV=production` enables indexing; previews are noindex and disallowed by robots.txt. No paid services or runtime database are needed.
 
 Validation: `python3 -m unittest discover -s scripts -p 'test_*.py'`.
 
+`privacidad.html` publishes factual privacy information. The full statutory notice remains a draft while its required responsible-party details are incomplete. Google and Bing verification tags can be added with the `google_site_verification` and `bing_site_verification` values in `site.json`; use the exact values issued by the services.
+
+The `Revisar sitios públicos` workflow checks public HTML, canonicals, robots, sitemaps, privacy links and legacy redirects. It runs weekly through 12 December 2026, then monthly, and can be dispatched manually. Reports are kept for 30 days. Run `python3 scripts/audit_sites.py --output search-health.json` locally. Search Console and Bing account reports provide the separate indexing and search-performance evidence.
+
+The previous Vercel portfolio uses `legacy-vercel/` for its permanent redirects. Deploy that directory to `sebastian-portfolio` to preserve the redirect configuration.
+
 ## Project showcase and WordPress links
 
 The dedicated showcase is `/projects.html`, linked from every page. Stable individual links are `/projects.html#crab-chess` and `/projects.html#voces-de-la-plaza`. Repository links work immediately; demo buttons appear when their actual addresses are entered in site.json.
 
-Set `blog_url` in site.json to the real WordPress address and rebuild to show the blog link on the showcase. In WordPress, set `PORTFOLIO_URL` to the personal site's verified base URL: the setup adds a **Portafolio de proyectos** navigation/footer link and article links to the corresponding showcase sections. Use the same base URL after the Vercel migration. The new showcase route is not public until this source branch is deployed.
+Set `blog_url` in site.json to the real WordPress address and rebuild to show the blog section at `/projects.html#blog`, including links to its two project articles. In WordPress, set `PORTFOLIO_URL` to the personal site's verified base URL: the setup adds a **Portafolio de proyectos** navigation/footer link and article links to the corresponding showcase sections. Use the same base URL after the Vercel migration. The blog navigation and footer return to the same `#blog` section on the GitHub Pages site.
 
 ## Migration and search engines
 

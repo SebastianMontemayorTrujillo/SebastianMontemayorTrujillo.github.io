@@ -15,6 +15,14 @@ La portada, navegación, cabecera y pie se guardan como contenido editable de Wo
 
 El portafolio externo usa `PORTFOLIO_URL` como dirección base. El script añade **Portafolio de proyectos** al menú y al pie, con destino `/projects.html`; las entradas enlazan a `#crab-chess` y `#voces-de-la-plaza`. Para devolver el enlace desde el sitio personal al blog, configurar `blog_url` en site.json y reconstruir el portafolio. Publicar ambos destinos antes de considerar comprobados los enlaces externos.
 
+## Vercel
+
+El sitio público está en <https://sebastian-notas.vercel.app> y el panel en <https://sebastian-notas.vercel.app/wp-admin/>. El proyecto `name-da43/sebastian-notas` ejecuta WordPress con ServerlessWP. La base SQLite y los archivos subidos se guardan en el almacén privado de Vercel Blob. Los cambios al tema, los plugins y WordPress se despliegan con el código.
+
+El usuario administrador es `sebastian`. Su contraseña generada está en `.env.vercel-admin`, excluido de Git y con permisos 0600. Las peticiones a Vercel admiten hasta 4.5 MB, por lo que las imágenes subidas deben caber dentro de ese límite junto con los datos de la petición.
+
+Para desplegar una actualización, prepara una carpeta nueva con `sh vercel/prepare.sh RUTA_NUEVA`. Desde esa carpeta, ejecuta `vercel link --project sebastian-notas --scope name-da43` y `vercel deploy --prod --skip-domain --archive=tgz --scope name-da43`. Comprueba la versión con `vercel curl` y promuévela con `vercel promote URL_DEL_DESPLIEGUE --scope name-da43`. El almacén y `WP_AUTH_SECRET` ya están configurados en el proyecto. Conserva la base `wp-sqlite.sqlite` en el almacén al actualizar el código. El script de datos de ejemplo es para la instalación inicial y la vista previa local.
+
 ## InfinityFree
 
 Crear una cuenta gratuita y un subdominio con HTTPS en su panel; instalar WordPress mediante Softaculous. Usar la dirección sin `www`. No usar su plan de pago ni comprar dominio.

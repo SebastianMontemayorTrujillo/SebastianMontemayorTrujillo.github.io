@@ -1,0 +1,37 @@
+--- a/wp/wp-config.php
++++ b/wp/wp-config.php
+@@ -66,14 +66,16 @@
+  *
+  * @since 2.6.0
+  */
+-define( 'AUTH_KEY',         'put your unique phrase here' );
+-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
+-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
+-define( 'NONCE_KEY',        'put your unique phrase here' );
+-define( 'AUTH_SALT',        'put your unique phrase here' );
+-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
+-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
+-define( 'NONCE_SALT',       'put your unique phrase here' );
++$auth_secret = getenv('WP_AUTH_SECRET');
++if (!$auth_secret) {
++    http_response_code(503);
++    exit('WordPress authentication is unavailable.');
++}
++foreach (['AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY',
++          'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT'] as $key) {
++    define($key, hash_hmac('sha512', $key, $auth_secret));
++}
++unset($auth_secret);
+ 
+ /**#@-*/
+ 
+@@ -112,9 +114,6 @@
+ if (isset($headers['injectHost'])) {
+   $_SERVER['HTTP_HOST'] = $headers['injectHost'];
+ }
+-
+-define('WP_SITEURL', 'https://' . $_SERVER['HTTP_HOST']);
+-define('WP_HOME', 'https://' . $_SERVER['HTTP_HOST']);
+ 
+ // Optional S3 credentials for file storage.
+ if (isset($_ENV['S3_KEY_ID']) && isset($_ENV['S3_ACCESS_KEY'])) {

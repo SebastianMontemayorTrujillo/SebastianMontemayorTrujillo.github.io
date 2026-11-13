@@ -1,6 +1,22 @@
 <?php
 // Run with wp eval-file; this file is never a public endpoint.
-if (!defined('WP_CLI') || !WP_CLI) { exit(1); }
+if (!defined('WP_CLI') || !WP_CLI) {
+    exit(1);
+}
+
+function save_blog_post($slug, $type, $fields, $existing_id) {
+    $id = wp_insert_post($fields + [
+        'ID' => $existing_id,
+        'post_name' => $slug,
+        'post_type' => $type,
+        'post_status' => 'publish',
+    ], true);
+    if (is_wp_error($id)) {
+        WP_CLI::error($id->get_error_message());
+    }
+    return $id;
+}
+
 $config = [];
 foreach (['PORTFOLIO_URL', 'XDCHESS_URL', 'INEHACK_URL'] as $key) {
     $url = getenv($key);
@@ -48,10 +64,7 @@ wp_update_user(['ID' => $author->ID, 'display_name' => 'Sebastian Montemayor Tru
 $ids = [];
 foreach ($posts as $post) {
     $existing = get_page_by_path($post['slug'], OBJECT, $post['type']);
-    $id = wp_insert_post([
-        'ID' => $existing ? $existing->ID : 0,
-        'post_name' => $post['slug'],
-        'post_type' => $post['type'],
+    $id = save_blog_post($post['slug'], $post['type'], [
         'post_author' => $author->ID,
         'post_title' => $post['title'],
         'post_content' => strtr($post['html'], $config),
@@ -59,19 +72,25 @@ foreach ($posts as $post) {
         'post_status' => $post['status'] ?? 'publish',
         'comment_status' => 'closed',
         'ping_status' => 'closed',
-    ], true);
-    if (is_wp_error($id)) { WP_CLI::error($id->get_error_message()); }
+    ], $existing->ID ?? 0);
     update_post_meta($id, '_yoast_wpseo_metadesc', $post['description']);
     $ids[$post['slug']] = $id;
 }
-update_option('blogname', 'Notas de Sebastian');
-update_option('blogdescription', 'Hackathons, juegos y aprendizajes de desarrollo de software');
-update_option('timezone_string', 'America/Monterrey');
-update_option('show_on_front', 'page');
-update_option('page_on_front', $ids['proyectos']);
-update_option('page_for_posts', $ids['blog']);
-update_option('default_comment_status', 'closed');
-update_option('default_ping_status', 'closed');
+$host = wp_parse_url(home_url(), PHP_URL_HOST);
+$options = [
+    'blogname' => 'Notas de Sebastian',
+    'blogdescription' => 'Hackathons, juegos y aprendizajes de desarrollo de software',
+    'timezone_string' => 'America/Monterrey',
+    'show_on_front' => 'page',
+    'page_on_front' => $ids['proyectos'],
+    'page_for_posts' => $ids['blog'],
+    'default_comment_status' => 'closed',
+    'default_ping_status' => 'closed',
+    'blog_public' => in_array($host, ['localhost', '127.0.0.1'], true) ? 0 : 1,
+];
+foreach ($options as $name => $value) {
+    update_option($name, $value);
+}
 wp_update_term(1, 'category', ['name' => 'Proyectos', 'slug' => 'proyectos']);
 $navigation = '';
 foreach (['proyectos' => 'Inicio', 'blog' => 'Blog', 'sobre-mi' => 'Sobre mí', 'apoya-mis-proyectos' => 'Apoya mis proyectos'] as $slug => $label) {
@@ -79,11 +98,13 @@ foreach (['proyectos' => 'Inicio', 'blog' => 'Blog', 'sobre-mi' => 'Sobre mí', 
     $navigation .= '<!-- wp:navigation-link ' . wp_json_encode($attrs) . ' /-->';
 }
 $navigation .= '<!-- wp:navigation-link ' . wp_json_encode([
-    'label' => 'Portafolio de proyectos', 'type' => 'custom', 'url' => $projects_url, 'kind' => 'custom',
+    'label' => 'Volver a proyectos', 'type' => 'custom', 'url' => $projects_url . '#blog', 'kind' => 'custom',
 ]) . ' /-->';
 $nav = get_page_by_path('navegacion-del-blog', OBJECT, 'wp_navigation');
-$nav_id = wp_insert_post(['ID' => $nav ? $nav->ID : 0, 'post_name' => 'navegacion-del-blog',
-    'post_type' => 'wp_navigation', 'post_status' => 'publish', 'post_title' => 'Navegación del blog', 'post_content' => $navigation]);
+$nav_id = save_blog_post('navegacion-del-blog', 'wp_navigation', [
+    'post_title' => 'Navegación del blog',
+    'post_content' => $navigation,
+], $nav->ID ?? 0);
 $header = '<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"24px","bottom":"24px"}}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->' .
     '<div class="wp-block-group alignwide" style="padding-top:24px;padding-bottom:24px"><!-- wp:site-title {"level":0} /-->' .
     '<!-- wp:navigation {"ref":' . $nav_id . ',"overlayMenu":"mobile"} /--></div><!-- /wp:group -->';
@@ -91,16 +112,16 @@ $footer = '<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"4
     '<div class="wp-block-group alignwide" style="padding-top:48px;padding-bottom:32px"><!-- wp:site-title {"level":0} /-->' .
     '<!-- wp:paragraph --><p>Hackathons, juegos y aprendizajes de desarrollo de software.</p><!-- /wp:paragraph -->' .
     '<!-- wp:paragraph --><p><a href="' . $config['{{PORTFOLIO_URL}}'] . '">Sitio personal de Sebastian</a> · ' .
-    '<a href="' . $config['{{PROJECTS_URL}}'] . '">Portafolio de proyectos</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
+    '<a href="' . $config['{{PROJECTS_URL}}'] . '#blog">Volver a proyectos</a></p><!-- /wp:paragraph -->' .
+    '<!-- wp:paragraph --><p><a href="' . rtrim($config['{{PORTFOLIO_URL}}'], '/') . '/privacidad.html">Privacidad</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
 foreach (['header' => $header, 'footer' => $footer] as $slug => $content) {
     $existing = get_posts(['post_type' => 'wp_template_part', 'name' => $slug, 'numberposts' => 1,
         'tax_query' => [['taxonomy' => 'wp_theme', 'field' => 'slug', 'terms' => 'twentytwentyfive']]]);
-    $id = wp_insert_post(['ID' => $existing ? $existing[0]->ID : 0, 'post_type' => 'wp_template_part',
-        'post_status' => 'publish', 'post_name' => $slug, 'post_title' => $slug, 'post_content' => $content]);
+    $id = save_blog_post($slug, 'wp_template_part', [
+        'post_title' => $slug,
+        'post_content' => $content,
+    ], $existing[0]->ID ?? 0);
     wp_set_object_terms($id, 'twentytwentyfive', 'wp_theme');
     wp_set_object_terms($id, $slug, 'wp_template_part_area');
 }
-// Local copies must never become indexable accidentally.
-$host = wp_parse_url(home_url(), PHP_URL_HOST);
-update_option('blog_public', in_array($host, ['localhost', '127.0.0.1'], true) ? 0 : 1);
 WP_CLI::success('Contenido preparado. La bitácora de competencias permanece en borrador hasta tener evidencias.');

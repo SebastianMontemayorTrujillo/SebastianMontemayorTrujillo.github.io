@@ -1,49 +1,54 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>projects — Sebastian Montemayor Trujillo</title>
-  <meta name="description" content="Explore Sebastian Montemayor Trujillo's software projects: Crab Chess and Voces de la Plaza, with source code and available demos.">
-  <meta name="theme-color" content="#fffdfa">
+  <title>Proyectos — Sebastian Montemayor Trujillo</title>
+  <meta name="description" content="Juegos, proyectos y notas de Sebastian Montemayor Trujillo, con demos y código.">
+  <meta name="theme-color" content="#77bbdd">
   <link rel="canonical" href="https://sebastianmontemayortrujillo.github.io/projects.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="projects — Sebastian Montemayor Trujillo">
-  <meta property="og:description" content="Games, hackathon projects, and the things I learn by building them.">
+  <meta property="og:title" content="Proyectos — Sebastian Montemayor Trujillo">
+  <meta property="og:description" content="Juegos, proyectos y notas de Sebastian Montemayor Trujillo, con demos y código.">
   <meta property="og:url" content="https://sebastianmontemayortrujillo.github.io/projects.html">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>projects </h1>
-    <nav aria-label="Main navigation">
-      <a href="index.html">about</a>
-      <a href="now.html">now</a>
-      <a href="projects.html" aria-current="page">projects</a>
-      <a href="other.html">other</a>
+    <h1>Proyectos</h1>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">inicio</a>
+      <a href="now.html">ahora</a>
+      <a href="projects.html" aria-current="page">proyectos</a>
+      <a href="https://sebastianmontemayortrujillo.github.io/projects.html#blog">blog</a>
+      <a href="other.html">otros</a>
     </nav>
   </header>
   <main>
     <article>
-      <p class="updated">A few things I have been building. Each project links to its source code; demos are added as they go live.</p>
+      <p>Estos son algunos de mis proyectos. Puedes probarlos, revisar el código o leer sus notas en el blog.</p>
       <section id="crab-chess" aria-labelledby="crab-chess-title">
         <h2 id="crab-chess-title">Crab Chess</h2>
-        <p>A browser chess game where captures are settled by minigames. Play with a friend on the same keyboard or against a local Minimax opponent.</p>
-        <p>Built with JavaScript, Vite, and chess.js. AI search runs in a Web Worker, with automated tests for the game rules, search, and minigames.</p>
-        <p><a href="https://github.com/SebastianMontemayorTrujillo/xdchess">View Crab Chess on GitHub</a></p>
+        <p>Un juego de ajedrez en el que las capturas se resuelven con minijuegos. Puedes jugar con otra persona o contra la computadora.</p>
+        <p>La demo usa JavaScript y chess.js. El oponente utiliza búsqueda Minimax en un Web Worker dentro del navegador. Los minijuegos cambian el resultado de una captura, por lo que una jugada legal puede abrir un reto adicional.</p>
+        <p><a href="https://sebastian-notas.vercel.app/crab-chess-ajedrez-con-minijuegos/">Leer cómo funciona Crab Chess y ver capturas</a>.</p>
+        <p><a href="https://github.com/SebastianMontemayorTrujillo/xdchess">Ver código en GitHub</a></p>
         <!-- xdchess-demo -->
       </section>
       <section id="voces-de-la-plaza" aria-labelledby="voces-title">
         <h2 id="voces-title">Voces de la Plaza</h2>
-        <p>A civic-education adventure built in Godot with team Latas for INEhack. Explore Villa Brisa, compare Mexican voter-participation data, and create a citizen poster to download as a PDF.</p>
-        <p>The web game requires a desktop computer, keyboard, WebGL 2, and WebAssembly. A Linux build is also included in the repository's submission package.</p>
-        <p><a href="https://github.com/SebastianMontemayorTrujillo/inehack">View Voces de la Plaza on GitHub</a></p>
+        <p>Una aventura sobre participación ciudadana creada para INEhack. Explora Villa Brisa y crea tu propio cartel.</p>
+        <p>La demo está pensada para computadora, con teclado.</p>
+        <p>El equipo Latas creó este proyecto en Godot para INEhack. Usa datos agregados de participación electoral de México y una consulta simulada dentro de la historia. Puedes recorrer Villa Brisa, comparar datos y descargar un cartel ciudadano en PDF.</p>
+        <p>El avance se guarda en tu navegador. El juego distingue los datos oficiales de la consulta simulada y mantiene el cartel en el dispositivo.</p>
+        <p><a href="https://sebastian-notas.vercel.app/voces-de-la-plaza-inehack/">Leer las notas de Voces de la Plaza y ver capturas</a>.</p>
+        <p><a href="https://github.com/SebastianMontemayorTrujillo/inehack">Ver código en GitHub</a></p>
         <!-- inehack-demo -->
       </section>
       <!-- blog-link -->
     </article>
   </main>
-  <footer><p><a href="index.html">← Back to about</a></p></footer>
+  <footer><p><a href="index.html">Volver al inicio</a></p></footer>
 </body>
 </html>

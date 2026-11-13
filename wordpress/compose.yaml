@@ -42,8 +42,8 @@ services:
       WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
       BLOG_URL: ${BLOG_URL:-http://localhost:8085}
       PORTFOLIO_URL: ${PORTFOLIO_URL:-https://sebastianmontemayortrujillo.github.io}
-      XDCHESS_URL: ${XDCHESS_URL:-https://github.com/SebastianMontemayorTrujillo/xdchess}
-      INEHACK_URL: ${INEHACK_URL:-https://github.com/SebastianMontemayorTrujillo/inehack}
+      XDCHESS_URL: ${XDCHESS_URL:-https://xdchess.vercel.app}
+      INEHACK_URL: ${INEHACK_URL:-https://sebastian-voces-de-la-plaza.vercel.app}
       STRIPE_PAYMENT_LINK: ${STRIPE_PAYMENT_LINK:-}
       WP_ADMIN_USER: ${WP_ADMIN_USER:-sebastian}
       WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD:?Set WP_ADMIN_PASSWORD in .env}

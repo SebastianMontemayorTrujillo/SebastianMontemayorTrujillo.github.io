@@ -1,0 +1,47 @@
+name: Publicar sitio personal
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - style.css
+      - site.json
+      - scripts/**
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Comprobar la construcción
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Construir las páginas públicas
+        run: python3 scripts/build.py
+        env:
+          VERCEL_ENV: production
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

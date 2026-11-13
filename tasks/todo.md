@@ -11,7 +11,7 @@
 - [x] Export SQL, wp-content and WXR; restore SQL to an isolated test database.
 - [ ] Authenticate Vercel and publish all three projects; verify public URLs and connect GitHub deployment sources.
 - [ ] Set real demo/blog URLs in site.json and WordPress, then rebuild.
-- [ ] Create/access the free InfinityFree site and migrate WordPress.
+- [x] Deploy WordPress on Vercel with persistent content/media and verify public routes and admin editing.
 - [ ] Configure the supplied Stripe Payment Link, verify test checkout, then enable live checkout.
 - [ ] Publish GitHub Pages migration redirects after public Vercel checks.
 - [ ] Complete Google/Bing ownership verification and submit the production sitemaps.

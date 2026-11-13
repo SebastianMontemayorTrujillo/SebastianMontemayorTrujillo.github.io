@@ -3,6 +3,7 @@ dist/
 github-pages/
 .env
 wordpress/.env
+wordpress/.env.vercel-admin
 wordpress/backups/
 wordpress/evidence/
 /evidence/
