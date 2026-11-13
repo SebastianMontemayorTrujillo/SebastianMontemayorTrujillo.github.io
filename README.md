@@ -12,6 +12,12 @@ Vercel uses `vercel.json`; import this repository with framework **Other**. The 
 
 Validation: `python3 -m unittest discover -s scripts -p 'test_*.py'`.
 
+`privacidad.html` publishes factual privacy information. The full statutory notice remains a draft while its required responsible-party details are incomplete. Google and Bing verification tags can be added with the `google_site_verification` and `bing_site_verification` values in `site.json`; use the exact values issued by the services.
+
+The `Revisar sitios públicos` workflow checks public HTML, canonicals, robots, sitemaps, privacy links and legacy redirects. It runs weekly through 12 December 2026, then monthly, and can be dispatched manually. Reports are kept for 30 days. Run `python3 scripts/audit_sites.py --output search-health.json` locally. Search Console and Bing account reports provide the separate indexing and search-performance evidence.
+
+The previous Vercel portfolio uses `legacy-vercel/` for its permanent redirects. Deploy that directory to `sebastian-portfolio` to preserve the redirect configuration.
+
 ## Project showcase and WordPress links
 
 The dedicated showcase is `/projects.html`, linked from every page. Stable individual links are `/projects.html#crab-chess` and `/projects.html#voces-de-la-plaza`. Repository links work immediately; demo buttons appear when their actual addresses are entered in site.json.
