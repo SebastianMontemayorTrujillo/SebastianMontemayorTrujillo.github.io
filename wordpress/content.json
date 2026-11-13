@@ -18,14 +18,14 @@
     "type": "page",
     "title": "Sobre mí",
     "description": "Conoce a Sebastian Montemayor Trujillo, estudiante de matemáticas y creador de proyectos web.",
-    "html": "<p>Soy de Monterrey, México, y estudio matemáticas en la UNAM. Me interesa aprender creando herramientas y experiencias que otras personas puedan probar.</p><p>Aquí documento lo que construyo, los límites de cada proyecto y lo que todavía quiero mejorar.</p><p><a href='{{PORTFOLIO_URL}}'>Sitio personal</a> · <a href='https://github.com/SebastianMontemayorTrujillo'>GitHub</a> · <a href='mailto:sebastianmontemayortrujillo@gmail.com'>Contacto por correo</a></p><p><a href='{{PROJECTS_URL}}'>Explora mi portafolio de proyectos</a>.</p>"
+    "html": "<p>Soy de Monterrey, México, y estudio matemáticas en la UNAM. Me interesa aprender creando herramientas y experiencias que otras personas puedan probar.</p><p>Aquí documento lo que construyo, los límites de cada proyecto y lo que todavía quiero mejorar.</p><p><a href='{{PORTFOLIO_URL}}'>Sitio personal</a> · <a href='https://github.com/SebastianMontemayorTrujillo'>GitHub</a> · <a href='mailto:sebastianmontemayortrujillo@gmail.com'>Contacto por correo</a></p><p><a href='{{PROJECTS_URL}}'>Explora mi portafolio de proyectos</a>.</p><p>Si me escribes, usaré tu dirección y el contenido del mensaje para atender tu consulta. Puedes leer la <a href='{{PORTFOLIO_URL}}/privacidad.html'>información de privacidad</a> antes de contactar.</p>"
   },
   {
     "slug": "apoya-mis-proyectos",
     "type": "page",
     "title": "Apoya mis proyectos",
     "description": "Apoya de forma voluntaria los proyectos personales de Sebastian Montemayor Trujillo mediante Stripe.",
-    "html": "<p>Si te gustan mis proyectos, puedes apoyar su desarrollo con una aportación voluntaria y única. El apoyo es para mis proyectos personales.</p><p>Stripe procesa el pago en su propia página y descuenta las comisiones correspondientes. Este sitio no recibe ni almacena los datos de tu tarjeta.</p>{{STRIPE_BUTTON}}<p>Si tienes una duda sobre una aportación, <a href='mailto:sebastianmontemayortrujillo@gmail.com'>escríbeme por correo</a>.</p>"
+    "html": "<p>Si te gustan mis proyectos, puedes apoyar su desarrollo con una aportación voluntaria y única. El apoyo es para mis proyectos personales.</p><p>Stripe procesa el pago en su propia página y descuenta las comisiones correspondientes. Este sitio no recibe ni almacena los datos de tu tarjeta.</p>{{STRIPE_BUTTON}}<p>Si tienes una duda sobre una aportación, <a href='mailto:sebastianmontemayortrujillo@gmail.com'>escríbeme por correo</a>.</p><p>Si me escribes, usaré tu dirección y el contenido del mensaje para atender tu consulta. Puedes leer la <a href='{{PORTFOLIO_URL}}/privacidad.html'>información de privacidad</a> antes de contactar.</p>"
   },
   {
     "slug": "crab-chess-ajedrez-con-minijuegos",

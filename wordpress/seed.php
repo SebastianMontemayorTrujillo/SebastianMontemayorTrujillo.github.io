@@ -91,7 +91,8 @@ $footer = '<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"4
     '<div class="wp-block-group alignwide" style="padding-top:48px;padding-bottom:32px"><!-- wp:site-title {"level":0} /-->' .
     '<!-- wp:paragraph --><p>Hackathons, juegos y aprendizajes de desarrollo de software.</p><!-- /wp:paragraph -->' .
     '<!-- wp:paragraph --><p><a href="' . $config['{{PORTFOLIO_URL}}'] . '">Sitio personal de Sebastian</a> · ' .
-    '<a href="' . $config['{{PROJECTS_URL}}'] . '#blog">Volver a proyectos</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
+    '<a href="' . $config['{{PROJECTS_URL}}'] . '#blog">Volver a proyectos</a></p><!-- /wp:paragraph -->' .
+    '<!-- wp:paragraph --><p><a href="' . rtrim($config['{{PORTFOLIO_URL}}'], '/') . '/privacidad.html">Privacidad</a></p><!-- /wp:paragraph --></div><!-- /wp:group -->';
 foreach (['header' => $header, 'footer' => $footer] as $slug => $content) {
     $existing = get_posts(['post_type' => 'wp_template_part', 'name' => $slug, 'numberposts' => 1,
         'tax_query' => [['taxonomy' => 'wp_theme', 'field' => 'slug', 'terms' => 'twentytwentyfive']]]);
