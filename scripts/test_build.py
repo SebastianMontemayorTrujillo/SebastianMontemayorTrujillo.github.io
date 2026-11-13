@@ -22,7 +22,8 @@ class BuildTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             config = {'site_url': 'https://seb.example', 'blog_url': 'https://blog.example',
-                      'xdchess_url': 'https://chess.example', 'inehack_url': 'https://game.example'}
+                      'xdchess_url': 'https://chess.example', 'inehack_url': 'https://game.example',
+                      'google_site_verification': 'test-google', 'bing_site_verification': 'test-bing'}
             (root / 'site.json').write_text(json.dumps(config))
             for page in build.PAGES:
                 (root / page).write_text((build.ROOT / page).read_text())
@@ -37,6 +38,9 @@ class BuildTests(unittest.TestCase):
                 self.assertIn('https://chess.example', text)
                 self.assertIn('https://game.example', text)
                 self.assertIn('https://blog.example', text)
+                self.assertIn('name="google-site-verification" content="test-google"', text)
+                self.assertIn('name="msvalidate.01" content="test-bing"', text)
+                self.assertIn('href="privacidad.html"', text)
                 self.assertIn('id="blog"', text)
                 self.assertIn('https://blog.example/crab-chess-ajedrez-con-minijuegos/', text)
                 self.assertIn('id="crab-chess"', text)
@@ -48,7 +52,7 @@ class BuildTests(unittest.TestCase):
                 self.assertNotIn('og.png', text)
                 self.assertFalse((output / '.env').exists())
                 xml = ET.parse(output / 'sitemap.xml')
-                self.assertEqual(len(xml.findall('{*}url')), 4)
+                self.assertEqual(len(xml.findall('{*}url')), len(build.PAGES))
                 self.assertIn('https://seb.example/projects.html', (output / 'sitemap.xml').read_text())
                 self.assertEqual('Disallow: /' in (output / 'robots.txt').read_text(), env == 'preview')
 

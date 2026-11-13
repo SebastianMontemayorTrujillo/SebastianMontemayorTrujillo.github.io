@@ -7,7 +7,7 @@ import os
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "now.html", "projects.html", "other.html")
+PAGES = ("index.html", "now.html", "projects.html", "other.html", "privacidad.html")
 
 
 def https_url(value):
@@ -34,6 +34,21 @@ def build():
         source = source.replace("</head>", '<link rel="icon" href="data:,">\n</head>')
         if not production:
             source = source.replace("</head>", '<meta name="robots" content="noindex, nofollow">\n</head>')
+        for key, name in (("google_site_verification", "google-site-verification"),
+                          ("bing_site_verification", "msvalidate.01")):
+            value = config.get(key, "")
+            if value:
+                source = source.replace("</head>", f'<meta name="{name}" content="{html.escape(value, quote=True)}">\n</head>')
+        source = source.replace("</head>", '<meta name="referrer" content="strict-origin-when-cross-origin">\n</head>')
+        if page == "index.html":
+            graph = {"@context": "https://schema.org", "@graph": [
+                {"@type": "Person", "@id": origin + "/#sebastian", "name": "Sebastian Montemayor Trujillo",
+                 "url": origin + "/", "sameAs": ["https://github.com/SebastianMontemayorTrujillo"]},
+                {"@type": "WebSite", "url": origin + "/", "name": "Sebastian Montemayor Trujillo",
+                 "inLanguage": "es", "publisher": {"@id": origin + "/#sebastian"}},
+            ]}
+            data = json.dumps(graph, ensure_ascii=False).replace("<", "\\u003c")
+            source = source.replace("</head>", f'<script type="application/ld+json">{data}</script>\n</head>')
         for project in ("xdchess", "inehack"):
             url = config[project + "_url"]
             link = f'<a href="{html.escape(https_url(url), quote=True)}">Probar la demo</a>' if url else ""
@@ -54,6 +69,12 @@ def build():
         else:
             source = source.replace('      <a href="projects.html#blog">blog</a>\n', "")
         source = source.replace("<!-- blog-link -->", link)
+        if page != "privacidad.html":
+            privacy = '<p><a href="privacidad.html">Privacidad</a></p>'
+            if "</footer>" in source:
+                source = source.replace("</footer>", privacy + "</footer>")
+            else:
+                source = source.replace("</body>", "<footer>" + privacy + "</footer>\n</body>")
         (output / page).write_text(source + "\n")
     shutil.copyfile(ROOT / "style.css", output / "style.css")
     urls = [origin + ("/" if page == "index.html" else "/" + page) for page in PAGES]

@@ -1,0 +1,13 @@
+{
+  "framework": null,
+  "buildCommand": "",
+  "installCommand": "",
+  "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://sebastianmontemayortrujillo.github.io/:path*",
+      "permanent": true
+    }
+  ]
+}
