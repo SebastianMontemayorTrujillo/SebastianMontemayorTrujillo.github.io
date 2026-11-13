@@ -5,6 +5,11 @@
   "outputDirectory": ".",
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://sebastianmontemayortrujillo.github.io/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "destination": "https://sebastianmontemayortrujillo.github.io/:path*",
       "permanent": true
